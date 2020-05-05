@@ -29,6 +29,7 @@ function vigenere()
         if(newchar < 'A')
             newchar += 26
         end
+        index += 1
         print(newchar)
     end
 

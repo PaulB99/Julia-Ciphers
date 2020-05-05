@@ -59,6 +59,16 @@ function enigma()
     Where R(x) denotes the rotor at a given position, ' denotes an inverted rotor and REF denotes a reflector
     The output finally goes though the plug board again (if used) =#
     for char in text
+
+        #Step rotors
+        increment1 += 1
+        if('A' + increment1 == rotor2step)
+            increment2 += 1
+        end
+        if('A' + increment2 == rotor3step)
+            increment3 += 1
+        end
+
         # First rotor
         index = char - 'A' + increment1 + 1
         if(index > 26)
