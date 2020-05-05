@@ -5,6 +5,8 @@ I'm currently learning the Julia language, and as I have a keen interest in cryp
 
 I will start relatively simple but hopefully advancing to more complex implementations.
 
+To test any of these yourself, you only need to include the file on your Julia REPL and the program should run automatically
+
 * The Caesar cipher is a very simple substitution, with each letter being 'incremented' a given amount to produce ciphertext. It was to used by Julius Caesar to encode military messages.
 
 * The Vigenère cipher builds on the Caesar cipher. Along with the plaintext, a key must also be provided of equal length. This key is often a word repeated several times up to the length of the plaintext, for example "PaulPaulPa" Then for each letter of the plaintext, a Caesar cipher is carried out where 'A' corresponds to the letter at the same position in the key. First described in 1553 by Giovan Battista Bellaso, it resisted attempts to break it until 1863.
