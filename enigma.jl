@@ -1,5 +1,6 @@
 #An implementation of the Enigma I machine in Julia
 
+#This function ensures an index is between 1 and 26, and if not loops it around
 function loopIndex(i)
     if(i > 26)
         i -= 26
@@ -10,6 +11,18 @@ function loopIndex(i)
     return i
 end
 
+#This function ensures a character is in the range A - Z, and if not loops it around
+function loopChar(c)
+    if(c > 'Z')
+        c -= 26
+    end
+    if(c < 'A')
+        c += 26
+    end
+    return c
+end
+
+#The main function
 function enigma()
     # Get plaintext
     println("Please enter the text: ")
@@ -86,85 +99,40 @@ function enigma()
 
         # Second rotor
         index = char1 - 'A' + increment2 + 1
-        if(index > 26)
-            index -= 26
-        end
-        if(index < 1)
-            index += 26
-        end
+        index = loopIndex(index)
         char2 = secondRotor[index] - increment2
 
         # Third rotor
         index = char2 - 'A' + increment3 + 1
-        if(index > 26)
-            index -= 26
-        end
-        if(index < 1)
-            index += 26
-        end
+        index = loopIndex(index)
         char3 = thirdRotor[index] - increment3
 
         # Reflector
         index = char3 - 'A' + 1
-        if(index > 26)
-            index -= 26
-        end
-        if(index < 1)
-            index += 26
-        end
+        index = loopIndex(index)
         refChar = reflector[index]
 
         # Third rotor reflected (takes the index from the rotor, and works backwards to the normal alphabet)
         #The increments much be taken into account in reverse
         val = refChar + increment3
         # It must be insured any character used is alphabetical
-        if(val > 'Z')
-            val -= 26
-        end
-        if(val < 'A')
-            val += 26
-        end
+        val = loopChar(val)
         index = findfirst(isequal(val), thirdRotor)  - increment3
-        if(index > 26)
-            index -= 26
-        end
-        if(index < 1)
-            index += 26
-        end
+        index = loopIndex(index)
         char4 = 'A' + index - 1
 
         # Second rotor reflected (takes the index from the rotor, and works backwards to the normal alphabet)
         val = char4 + increment2
-        if(val > 'Z')
-            val -= 26
-        end
-        if(val < 'A')
-            val += 26
-        end
+        val = loopChar(val)
         index = findfirst(isequal(val), secondRotor)  - increment2
-        if(index > 26)
-            index -= 26
-        end
-        if(index < 1)
-            index += 26
-        end
+        index = loopIndex(index)
         char5 = 'A' + index - 1
 
         # First rotor reflected (takes the index from the rotor, and works backwards to the normal alphabet)
         val = char5 + increment1
-        if(val > 'Z')
-            val -= 26
-        end
-        if(val < 'A')
-            val += 26
-        end
+        val = loopChar(val)
         index = findfirst(isequal(val), firstRotor)  - increment1
-        if(index > 26)
-            index -= 26
-        end
-        if(index < 1)
-            index += 26
-        end
+        index = loopIndex(index)
         char6 = 'A' + index - 1
 
         #TODO Plug board here
