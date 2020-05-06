@@ -1,5 +1,15 @@
 #An implementation of the Enigma I machine in Julia
 
+function loopIndex(i)
+    if(i > 26)
+        i -= 26
+    end
+    if(i < 1)
+        i += 26
+    end
+    return i
+end
+
 function enigma()
     # Get plaintext
     println("Please enter the text: ")
@@ -60,15 +70,19 @@ function enigma()
     The output finally goes though the plug board again (if used) =#
     for char in text
 
+        #Step rotors
+        increment1 += 1
+        if('A' + increment1 + 1 == rotor2step)
+            increment2 += 1
+        end
+        if('A' + increment2 + 1  == rotor3step)
+            increment3 += 1
+        end
+
         # First rotor
         index = char - 'A' + increment1 + 1
-        if(index > 26)
-            index -= 26
-        end
-        if(index < 1)
-            index += 26
-        end
-        char1 = firstRotor[index]
+        index = loopIndex(index)
+        char1 = firstRotor[index] - increment1
 
         # Second rotor
         index = char1 - 'A' + increment2 + 1
@@ -78,7 +92,7 @@ function enigma()
         if(index < 1)
             index += 26
         end
-        char2 = secondRotor[index]
+        char2 = secondRotor[index] - increment2
 
         # Third rotor
         index = char2 - 'A' + increment3 + 1
@@ -88,7 +102,7 @@ function enigma()
         if(index < 1)
             index += 26
         end
-        char3 = thirdRotor[index]
+        char3 = thirdRotor[index] - increment3
 
         # Reflector
         index = char3 - 'A' + 1
@@ -101,7 +115,16 @@ function enigma()
         refChar = reflector[index]
 
         # Third rotor reflected (takes the index from the rotor, and works backwards to the normal alphabet)
-        index = findfirst(isequal(refChar), thirdRotor)  - increment3
+        #The increments much be taken into account in reverse
+        val = refChar + increment3
+        # It must be insured any character used is alphabetical
+        if(val > 'Z')
+            val -= 26
+        end
+        if(val < 'A')
+            val += 26
+        end
+        index = findfirst(isequal(val), thirdRotor)  - increment3
         if(index > 26)
             index -= 26
         end
@@ -111,7 +134,14 @@ function enigma()
         char4 = 'A' + index - 1
 
         # Second rotor reflected (takes the index from the rotor, and works backwards to the normal alphabet)
-        index = findfirst(isequal(char4), secondRotor)  - increment2
+        val = char4 + increment2
+        if(val > 'Z')
+            val -= 26
+        end
+        if(val < 'A')
+            val += 26
+        end
+        index = findfirst(isequal(val), secondRotor)  - increment2
         if(index > 26)
             index -= 26
         end
@@ -121,7 +151,14 @@ function enigma()
         char5 = 'A' + index - 1
 
         # First rotor reflected (takes the index from the rotor, and works backwards to the normal alphabet)
-        index = findfirst(isequal(char5), firstRotor)  - increment1
+        val = char5 + increment1
+        if(val > 'Z')
+            val -= 26
+        end
+        if(val < 'A')
+            val += 26
+        end
+        index = findfirst(isequal(val), firstRotor)  - increment1
         if(index > 26)
             index -= 26
         end
@@ -134,14 +171,6 @@ function enigma()
 
         print(char6)
 
-        #Step rotors
-        increment1 += 1
-        if('A' + increment1 == rotor2step)
-            increment2 += 1
-        end
-        if('A' + increment2 == rotor3step)
-            increment3 += 1
-        end
     end
 end
 enigma()
