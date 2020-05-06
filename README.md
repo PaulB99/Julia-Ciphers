@@ -14,3 +14,10 @@ To test any of these yourself, you only need to include the file on your Julia R
 * The Enigma cipher is one of the most famous ciphers, primarily used by the Axis powers in WW2. Various models were produced, but I am focusing on the Enigma I machine. The machine contains 3 rotors (more are available in later machines), a number of disks, a plug board and a reflector, all of which can be configured in various way to vary  the ciphertext output. In simple terms, the process goes as follows: 
 Firstly, the plaintext passes though the plug board which maps some letters to certain others. Then, the signal passes through R1 -> R2 -> R3 -> REF -> R3' -> R2' -> R1' where R(x) denotes a rotor at a given position, REF represents a reflector and ' shows a rotor has been reflected. Finally, the signal is again passed through the plugboard before outputting the ciphertext. The rotors do not act as a simple odometer however - the rotors also rotate subject to certain conditions. 
 As of yet I've only implemented a basic version, missing many components. I hope to add these in future.
+
+
+Future Targets:
+
+* Sanitise inputs
+
+* UI?
