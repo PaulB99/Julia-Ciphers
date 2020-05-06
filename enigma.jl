@@ -60,15 +60,6 @@ function enigma()
     The output finally goes though the plug board again (if used) =#
     for char in text
 
-        #Step rotors
-        increment1 += 1
-        if('A' + increment1 == rotor2step)
-            increment2 += 1
-        end
-        if('A' + increment2 == rotor3step)
-            increment3 += 1
-        end
-
         # First rotor
         index = char - 'A' + increment1 + 1
         if(index > 26)
@@ -78,7 +69,6 @@ function enigma()
             index += 26
         end
         char1 = firstRotor[index]
-        #TODO implement stepping
 
         # Second rotor
         index = char1 - 'A' + increment2 + 1
@@ -89,7 +79,6 @@ function enigma()
             index += 26
         end
         char2 = secondRotor[index]
-        #TODO implement stepping
 
         # Third rotor
         index = char2 - 'A' + increment3 + 1
@@ -100,7 +89,6 @@ function enigma()
             index += 26
         end
         char3 = thirdRotor[index]
-        #TODO implement stepping
 
         # Reflector
         index = char3 - 'A' + 1
@@ -121,7 +109,6 @@ function enigma()
             index += 26
         end
         char4 = 'A' + index - 1
-        #TODO implement stepping
 
         # Second rotor reflected (takes the index from the rotor, and works backwards to the normal alphabet)
         index = findfirst(isequal(char4), secondRotor)  - increment2
@@ -132,7 +119,6 @@ function enigma()
             index += 26
         end
         char5 = 'A' + index - 1
-        #TODO implement stepping
 
         # First rotor reflected (takes the index from the rotor, and works backwards to the normal alphabet)
         index = findfirst(isequal(char5), firstRotor)  - increment1
@@ -143,11 +129,19 @@ function enigma()
             index += 26
         end
         char6 = 'A' + index - 1
-        #TODO implement stepping
 
         #TODO Plug board here
 
         print(char6)
+
+        #Step rotors
+        increment1 += 1
+        if('A' + increment1 == rotor2step)
+            increment2 += 1
+        end
+        if('A' + increment2 == rotor3step)
+            increment3 += 1
+        end
     end
 end
 enigma()
