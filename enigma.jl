@@ -85,12 +85,6 @@ function enigma()
 
         #Step rotors
         increment1 += 1
-        if('A' + increment1  == rotor2step)
-            increment2 += 1
-        end
-        if('A' + increment2   == rotor3step)
-            increment3 += 1
-        end
 
         # First rotor
         index = char - 'A' + increment1 + 1
