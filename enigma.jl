@@ -51,11 +51,18 @@ function enigma()
     thirdRotor = rotor1
     thirdRotorStep = rotor1step
 
-    #= I will assume the rotors start at the AAA position for now
-    TODO: implement rotor starting positions =#
-    increment1 = 0
-    increment2 = 0
-    increment3 = 0
+    # The user can set the rotor starting positions
+    println("Enter the starting rotor positions in the form XXX, or press enter to use the default AAA")
+    startPos = readline()
+    if(length(startPos) == 0)
+        increment1 = 0
+        increment2 = 0
+        increment3 = 0
+    else
+        increment1 = startPos[3] - 'A'
+        increment2 = startPos[2] - 'A'
+        increment3 = startPos[1] - 'A'
+    end
 
     #= The standard reflector used in the war was reflector UKW-B, so I use it here
     I may add other reflectors in the future
@@ -85,6 +92,12 @@ function enigma()
 
         #Step rotors
         increment1 += 1
+        #=if('A' + increment1  == rotor2step)
+            increment2 += 1
+        end
+        if('A' + increment2   == rotor3step)
+            increment3 += 1
+        end =#
 
         # First rotor
         index = char - 'A' + increment1 + 1
