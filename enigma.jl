@@ -75,8 +75,15 @@ function enigma()
 
     #=To start, I will also assume fixed ring settings
     TODO: implement ring settings =#
-    println("Ring settings not yet implemented, press enter to use default")
+    println("Enter the ring positions in the form XXX, or press enter to use the default AAA")
     ringSettings = readline()
+    if(length(ringSettings) != 0)
+        increment1 += ringSettings[3] - 'A'
+        increment2 += ringSettings[2] - 'A'
+        increment3 += ringSettings[1] - 'A'
+    end
+
+
 
     #=Plug board settings are complex, they will probably be the last thing I implement
     TODO: implement plug board settings =#
