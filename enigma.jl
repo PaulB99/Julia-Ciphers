@@ -22,6 +22,16 @@ function loopChar(c)
     return c
 end
 
+#This method increments a list of characters according to a given int
+function incrementMappings(s, i)
+    out = ""
+    for c in s
+        c = loopChar(c + i)
+        out = string(out, c)
+    end
+    return out
+end
+
 #The main function
 function enigma()
     # Get plaintext
@@ -41,6 +51,8 @@ function enigma()
     TODO: implement choosing rotor order =#
     println("Rotor order not yet implemented, please press enter")
     order = readline()
+    for c in order
+    end
 
     firstRotor = rotor3
     firstRotorStep = rotor3step
@@ -75,20 +87,32 @@ function enigma()
 
     #=To start, I will also assume fixed ring settings
     TODO: implement ring settings =#
-    println("Enter the ring positions in the form XXX, or press enter to use the default AAA")
+    println("DON'T USE Enter the ring positions in the form XXX, or press enter to use the default AAA")
     ringSettings = readline()
-    if(length(ringSettings) != 0)
-        increment1 += ringSettings[3] - 'A'
-        increment2 += ringSettings[2] - 'A'
-        increment3 += ringSettings[1] - 'A'
+    if(length(ringSettings) == 0)
+        ring1 = 0
+        ring2 = 0
+        ring3 = 0
+    else
+        ring1 = ringSettings[3] - 'A'
+        #increment1 -= ring1
+        ring2 = ringSettings[2] - 'A'
+        #increment2 -= ring2
+        ring3 = ringSettings[1] - 'A'
+        #increment3 -= ring3
     end
 
-
+    # The mappings need to be all incremented according to the ring settings
+    firstRotor = incrementMappings(firstRotor, ring1)
+    secondRotor = incrementMappings(secondRotor, ring2)
+    thirdRotor = incrementMappings(thirdRotor, ring3)
 
     #=Plug board settings are complex, they will probably be the last thing I implement
     TODO: implement plug board settings =#
-    println("Plug board settings not yet implemented, press enter to skip this step")
-    plugBoard = readline()
+    println("Please Insert plug board settings in the form AB CD EF etc.")
+    plugBoardInput = readline()
+    plugBoardInput = uppercase(plugBoardInput)
+    plugBoard = split(plugBoardInput)
 
     #=Now it is time to run the cipher
     The input first goes through the plug board (if used)
@@ -106,20 +130,27 @@ function enigma()
             increment3 += 1
         end =#
 
+        # Plug board
+        for s in plugBoard
+            if s[1] == char
+                char = s[2]
+            end
+        end
+
         # First rotor
         index = char - 'A' + increment1 + 1
         index = loopIndex(index)
-        char1 = firstRotor[index] - increment1
+        char1 = loopChar(firstRotor[index] - increment1)
 
         # Second rotor
         index = char1 - 'A' + increment2 + 1
         index = loopIndex(index)
-        char2 = secondRotor[index] - increment2
+        char2 = loopChar(secondRotor[index] - increment2)
 
         # Third rotor
         index = char2 - 'A' + increment3 + 1
         index = loopIndex(index)
-        char3 = thirdRotor[index] - increment3
+        char3 = loopChar(thirdRotor[index] - increment3)
 
         # Reflector
         index = char3 - 'A' + 1
@@ -133,23 +164,35 @@ function enigma()
         val = loopChar(val)
         index = findfirst(isequal(val), thirdRotor)  - increment3
         index = loopIndex(index)
-        char4 = 'A' + index - 1
+        char4 = loopChar('A' + index - 1)
 
         # Second rotor reflected (takes the index from the rotor, and works backwards to the normal alphabet)
         val = char4 + increment2
         val = loopChar(val)
         index = findfirst(isequal(val), secondRotor)  - increment2
         index = loopIndex(index)
-        char5 = 'A' + index - 1
+        char5 = loopChar('A' + index - 1)
 
         # First rotor reflected (takes the index from the rotor, and works backwards to the normal alphabet)
         val = char5 + increment1
         val = loopChar(val)
         index = findfirst(isequal(val), firstRotor)  - increment1
         index = loopIndex(index)
-        char6 = 'A' + index - 1
+        char6 = loopChar('A' + index - 1)
 
-        #TODO Plug board here
+        # Plug board
+        for s in plugBoard
+            if s[2] == char6
+                char6 = s[1]
+            end
+        end
+
+        #=print(char1)
+        print(char2)
+        print(char3)
+        print(refChar)
+        print(char4)
+        print(char5) =#
 
         print(char6)
 
