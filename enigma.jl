@@ -32,12 +32,8 @@ function incrementMappings(s, i)
     return out
 end
 
-#The main function
-function enigma()
-    # Get plaintext
-    println("Please enter the text: ")
-    text = readline()
-    text = uppercase(text)
+# This function gets the correct rotor and step given a Key
+function getRotor(i)
     #= In this model, only rotors I, II and III are available
     These mappings are the same as the original machines. =#
     rotor1 = "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
@@ -46,22 +42,34 @@ function enigma()
     rotor2step = 'E'
     rotor3 = "BDFHJLCPRTXVZNYEIWGAKMUSQO"
     rotor3step = 'V'
-
-    #=I will assume the order 3 -> 2 -> 1 for now
-    TODO: implement choosing rotor order =#
-    println("Rotor order not yet implemented, please press enter")
-    order = readline()
-    for c in order
+    if i == '1'
+        return rotor1, rotor1step
+    elseif i == '2'
+        return rotor2, rotor2step
+    elseif i == '3'
+        return rotor3, rotor3step
     end
+end
 
-    firstRotor = rotor3
-    firstRotorStep = rotor3step
+#The main function
+function enigma()
+    # Get plaintext
+    println("Please enter the text: ")
+    text = readline()
+    text = uppercase(text)
 
-    secondRotor = rotor2
-    secondRotorStep = rotor2step
-
-    thirdRotor = rotor1
-    thirdRotorStep = rotor1step
+    # Select the orders of rotors used
+    println("Please enter the rotor order in the form XXX")
+    rotorOrder = readline()
+    if length(rotorOrder) == 0
+        firstRotor, firstRotorStep = getRotor(3)
+        secondRotor, secondRotorStep = getRotor(2)
+        thirdRotor,thirdRotorStep = getRotor(1)
+    else
+        firstRotor, firstRotorStep = getRotor(rotorOrder[1])
+        secondRotor, secondRotorStep = getRotor(rotorOrder[2])
+        thirdRotor,thirdRotorStep = getRotor(rotorOrder[3])
+    end
 
     # The user can set the rotor starting positions
     println("Enter the starting rotor positions in the form XXX, or press enter to use the default AAA")
@@ -107,9 +115,8 @@ function enigma()
     secondRotor = incrementMappings(secondRotor, ring2)
     thirdRotor = incrementMappings(thirdRotor, ring3)
 
-    #=Plug board settings are complex, they will probably be the last thing I implement
-    TODO: implement plug board settings =#
-    println("Please Insert plug board settings in the form AB CD EF etc.")
+    #Plug board settings (Steckerbrett) directly map given letters at the very beginning and very end of operation
+    println("Please Insert plug board settings in the form AB CD EF etc. or press enter to use no plug board")
     plugBoardInput = readline()
     plugBoardInput = uppercase(plugBoardInput)
     plugBoard = split(plugBoardInput)
