@@ -51,6 +51,20 @@ function getRotor(i)
     end
 end
 
+# This function gets the correct reflector. It defaults to UKW - B
+function getReflector(i)
+    reflectorA = "EJMZALYXVBWFCRQUONTSPIKHGD"
+    reflectorB = "YRUHQSLDPXNGOKMIEBFZCWVJAT"
+    reflectorC = "FVPJIAOYEDRZXWGCTKUQSBNMHL"
+    if i == "A"
+        return reflectorA
+    elseif i == "C"
+        return reflectorC
+    else
+        return reflectorB
+    end
+end
+
 #The main function
 function enigma()
     # Get plaintext
@@ -62,9 +76,9 @@ function enigma()
     println("Please enter the rotor order in the form XXX")
     rotorOrder = readline()
     if length(rotorOrder) == 0
-        firstRotor, firstRotorStep = getRotor(3)
-        secondRotor, secondRotorStep = getRotor(2)
-        thirdRotor,thirdRotorStep = getRotor(1)
+        firstRotor, firstRotorStep = getRotor('3')
+        secondRotor, secondRotorStep = getRotor('2')
+        thirdRotor,thirdRotorStep = getRotor('1')
     else
         firstRotor, firstRotorStep = getRotor(rotorOrder[1])
         secondRotor, secondRotorStep = getRotor(rotorOrder[2])
@@ -84,14 +98,15 @@ function enigma()
         increment3 = startPos[1] - 'A'
     end
 
-    #= The standard reflector used in the war was reflector UKW-B, so I use it here
-    I may add other reflectors in the future
-    TODO: Add more reflectors =#
-    println("Different reflectors not yet implemented, press enter to use the default UKW-B")
+    #= The standard reflector used in the war was reflector UKW-B, so I use it as the default
+    The user can also choose UKW-A or UKW-C if they wish =#
+    println("Please specify the reflector (A for UKW-A, B for UKW-B or C for UKW-C) or press enter to use the default UKW-B")
     reflectorChoice = readline()
-
-    reflectorB = "YRUHQSLDPXNGOKMIEBFZCWVJAT"
-    reflector = reflectorB
+    if length(reflectorChoice) == 0
+        reflector = getReflector('B')
+    else
+        reflector = getReflector(reflectorChoice)
+    end
 
     #=To start, I will also assume fixed ring settings
     TODO: implement ring settings =#
