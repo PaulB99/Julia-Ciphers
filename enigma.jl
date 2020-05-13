@@ -67,6 +67,7 @@ end
 
 #The main function
 function enigma()
+
     # Get plaintext
     println("Please enter the text: ")
     text = readline()
@@ -145,12 +146,6 @@ function enigma()
 
         #Step rotors
         increment1 += 1
-        #=if('A' + increment1  == rotor2step)
-            increment2 += 1
-        end
-        if('A' + increment2   == rotor3step)
-            increment3 += 1
-        end =#
 
         # Plug board
         for s in plugBoard
@@ -209,15 +204,7 @@ function enigma()
             end
         end
 
-        #=print(char1)
-        print(char2)
-        print(char3)
-        print(refChar)
-        print(char4)
-        print(char5) =#
-
         print(char6)
-
     end
 end
 enigma()
