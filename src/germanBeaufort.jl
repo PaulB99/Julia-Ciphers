@@ -1,4 +1,4 @@
-# An implementation of the German variant of the Beaufort cipher in Julia
+# An implementation of the German variant of the Beaufort cipher in Julia. The only difference is that the key and plainext have switched roles
 
 function germanBeaufort()
     #Get plaintext and key
@@ -20,7 +20,7 @@ function germanBeaufort()
         key = string(key, keyword[pos])
     end
 
-    # Now encrypt. Works the same as Vigenere, except subtracts rather than adding distance and the key and plaintext have opposite roles
+    # Now encrypt. Works the same as Vigenere, except subtracts rather than adding distance.
     index = 1
     for char in text
         distance = key[index] - 'A'
