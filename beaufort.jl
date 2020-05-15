@@ -19,6 +19,20 @@ function beaufort()
         end
         key = string(key, keyword[pos])
     end
-    print(key)
+
+    # Now encrypt. Works the same as Vigenere, except subtracts rather than adding distance and the key and plaintext have opposite roles
+    index = 1
+    for char in key
+        distance = text[index] - 'A'
+        newchar = char - distance
+        if(newchar > 'Z')
+            newchar -= 26
+        end
+        if(newchar < 'A')
+            newchar += 26
+        end
+        index += 1
+        print(newchar)
+    end
 end
 beaufort()
