@@ -15,6 +15,7 @@ To test any of these yourself, you only need to include the file on your Julia R
 Firstly, the plaintext passes though the plug board which maps some letters to certain others. Then, the signal passes through R1 -> R2 -> R3 -> REF -> R3' -> R2' -> R1' where R(x) denotes a rotor at a given position, REF represents a reflector and ' shows a rotor has been reflected. Finally, the signal is again passed through the plugboard before outputting the ciphertext. The rotors do not act as a simple odometer however - the rotors also rotate subject to certain conditions. 
 I have currently implemented the majority of settings available in the Enigma I machine, missing only ring settings. I hope to add these in future.
 
+* The Beaufort cipher works similarly to the Vigenère cipher. A keyword is to be provided, this keyword is then repeated up to the length of the plaintext to create a key. This key is then used to reference to a tableau, which produces an output letter for a given combination of plaintext and key characters. The cipher was created by Sir Francis Beaufort.
 
 Future Targets:
 
