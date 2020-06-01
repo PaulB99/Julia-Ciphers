@@ -23,6 +23,15 @@ function playfair()
         end
     end
     println(keyString)
+
+    # Fill 5x5 grid
+    str1 = split(SubString(keyString, 1, 5), "")
+    str2 = split(SubString(keyString, 6, 10), "")
+    str3 = split(SubString(keyString, 11, 15), "")
+    str4 = split(SubString(keyString, 16, 20), "")
+    str5 = split(SubString(keyString, 21, 25), "")
+    keygrid = [str1 str2 str3 str4 str5]
+    show(stdout, "text/plain", keygrid)
 end
 
 playfair()
