@@ -17,6 +17,8 @@ I have currently implemented the majority of settings available in the Enigma I 
 
 * The Beaufort cipher works similarly to the Vigenère cipher. A keyword is to be provided, this keyword is then repeated up to the length of the plaintext to create a key. This key is then used to reference to a tableau, which produces an output letter for a given combination of plaintext and key characters. The cipher was created by Sir Francis Beaufort. I have also implemented the German variant, who's only difference if that the plaintext and and key have their roles switched in respect to the tableau.
 
+* The Playfair cipher was created by Charles Wheatstone in 1854, but bears the name of Lord Playfair who sponsored its use. A keyword is provided, which is incorparated into a 5x5 alphabet grid. To accomodate the 26 letter alphabet a letter must be removed, usually 'j' is replaced with 'i'. The plaintext is split into bigrams, and any bigram with 2 repeated letters has the second replaced with 'X', and any incomplete bigram has 'X' appended to it. Then substitution takes place using these bigrams and the grid, such that squares are formed on the grid, with the 2 letters of a bigram consituting opposite corners of the square. The bigram is then replaced by the other 2 corners of the square created to produce the corresponding ciphertext bigram. The cipher was actually rejected by the foreign office originally due to its perceived complexity, however was later used by British forces in the second Boer war, WW1 and WW2 as it is quick to use and requires no special equipment, unlike many other effective ciphers at the time.
+
 Future Targets:
 
 * Sanitise inputs
