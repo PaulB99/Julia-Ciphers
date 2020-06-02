@@ -31,7 +31,17 @@ function playfair()
     str4 = split(SubString(keyString, 16, 20), "")
     str5 = split(SubString(keyString, 21, 25), "")
     keygrid = [str1 str2 str3 str4 str5]
-    show(stdout, "text/plain", keygrid)
+    # Needs rotating the right way
+    grid = Array{String}(undef, 5, 5)
+    for c in keygrid
+        i = findfirst(isequal(c), keygrid)
+        #x = (i % 4) + 1
+        #y = round(Int, i / 5, RoundUp)
+        x = i[2]
+        y = i[1]
+        grid[x,y] = c
+    end
+    show(stdout, "text/plain", grid)
 end
 
 playfair()
