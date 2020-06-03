@@ -55,13 +55,20 @@ function playfair()
     if isodd(length(plaintext))
         plaintext = plaintext * "X"
     end
-    
+
     # Turn into bigrams
     bigrams = []
     for i in 1:length(plaintext)
         if iseven(i)
             bigram = plaintext[i-1] * plaintext[i]
             push!(bigrams, bigram)
+        end
+    end
+
+    # Replace repeated letters
+    for i in eachindex(bigrams)
+        if bigrams[i][1] == bigrams[i][2]
+            bigrams[i] = bigrams[i][1] * "X"
         end
     end
     println(bigrams)
