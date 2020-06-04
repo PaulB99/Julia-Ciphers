@@ -1,5 +1,14 @@
 # An implementation of the Playfair cipher in Julia
 
+# Loops an index if it is greater than 5
+function loop5(i)
+    if i > 5
+        i -= 5
+    end
+    return i
+end
+
+# The main function
 function playfair()
 
     # A keyword is needed to create the square
@@ -65,14 +74,27 @@ function playfair()
         end
     end
 
-    # Replace repeated letters
+    # Replace repeated letters with X
     for i in eachindex(bigrams)
         if bigrams[i][1] == bigrams[i][2]
             bigrams[i] = bigrams[i][1] * "X"
         end
     end
-    println(bigrams)
 
+    # Use the grid to encrypt the plaintext
+    ciphertext = ""
+    for b in bigrams
+        pos1 = findfirst(isequal(string(b[1])), grid)
+        pos2 = findfirst(isequal(string(b[2])), grid)
+        if pos1[1] == pos2[1] # Same X
+            ciphertext *= grid[loop5(pos1[1] + 1), pos1[2]] * grid[loop5(pos2[1] + 1), pos2[2]] * " "
+        elseif pos1[2] == pos2[2] # Same Y
+            ciphertext *= grid[pos1[1], loop5(pos1[2] + 1)] * grid[pos2[1], loop5(pos2[2] + 1)] * " "
+        else # Must form a square
+            ciphertext *= grid[pos1[1], pos2[2]] * grid[pos2[1], pos1[2]] * " "
+        end
+    end
+    println(ciphertext)
 end
 
 playfair()
