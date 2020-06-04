@@ -86,15 +86,18 @@ function playfair()
     for b in bigrams
         pos1 = findfirst(isequal(string(b[1])), grid)
         pos2 = findfirst(isequal(string(b[2])), grid)
-        if pos1[1] == pos2[1] # Same X
+        if pos1[2] == pos2[2] # Same X
+            println("2")
             ciphertext *= grid[loop5(pos1[1] + 1), pos1[2]] * grid[loop5(pos2[1] + 1), pos2[2]] * " "
-        elseif pos1[2] == pos2[2] # Same Y
+        elseif pos1[1] == pos2[1] # Same Y
+            println("1")
             ciphertext *= grid[pos1[1], loop5(pos1[2] + 1)] * grid[pos2[1], loop5(pos2[2] + 1)] * " "
         else # Must form a square
             ciphertext *= grid[pos1[1], pos2[2]] * grid[pos2[1], pos1[2]] * " "
         end
     end
     println(ciphertext)
+    println("BM OD ZB XD NA BE KU DM UI XM MO UV IF ")
 end
 
 playfair()
