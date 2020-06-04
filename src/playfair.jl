@@ -14,7 +14,9 @@ function playfair()
     # A keyword is needed to create the square
     println("Please enter a keyword")
     keyword = readline()
+    keyword = replace(keyword, " " => "")
     keyword = uppercase(keyword)
+
     alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ" # No j
 
     # Substitute all j's for i's
@@ -56,6 +58,8 @@ function playfair()
     plaintext = readline()
     plaintext = uppercase(plaintext)
 
+    # Replace J's with I's
+    plaintext = replace(plaintext, "J" => "I")
 
     # Remove spaces and turn into bigrams
     plaintext = replace(plaintext, " " => "")
@@ -67,9 +71,14 @@ function playfair()
 
     # Turn into bigrams
     bigrams = []
+    token = 0
     for i in 1:length(plaintext)
-        if iseven(i)
+        if iseven(i + token)
             bigram = plaintext[i-1] * plaintext[i]
+            if bigram[1] == bigram[2]
+                bigram = bigram[1] * "X"
+                token += 1
+            end
             push!(bigrams, bigram)
         end
     end
@@ -87,17 +96,14 @@ function playfair()
         pos1 = findfirst(isequal(string(b[1])), grid)
         pos2 = findfirst(isequal(string(b[2])), grid)
         if pos1[2] == pos2[2] # Same X
-            println("2")
             ciphertext *= grid[loop5(pos1[1] + 1), pos1[2]] * grid[loop5(pos2[1] + 1), pos2[2]] * " "
         elseif pos1[1] == pos2[1] # Same Y
-            println("1")
             ciphertext *= grid[pos1[1], loop5(pos1[2] + 1)] * grid[pos2[1], loop5(pos2[2] + 1)] * " "
         else # Must form a square
             ciphertext *= grid[pos1[1], pos2[2]] * grid[pos2[1], pos1[2]] * " "
         end
     end
     println(ciphertext)
-    println("BM OD ZB XD NA BE KU DM UI XM MO UV IF ")
 end
 
 playfair()
