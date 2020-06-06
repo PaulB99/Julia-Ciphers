@@ -19,6 +19,8 @@ I have currently implemented the majority of settings available in the Enigma I 
 
 * The Playfair cipher was created by Charles Wheatstone in 1854, but bears the name of Lord Playfair who sponsored its use. A keyword is provided, which is incorparated into a 5x5 alphabet grid. To accomodate the 26 letter alphabet a letter must be removed, usually 'j' is replaced with 'i'. The plaintext is split into bigrams, and any bigram with 2 repeated letters has the second replaced with 'X', and any incomplete bigram has 'X' appended to it. Then substitution takes place using these bigrams and the grid, such that squares are formed on the grid, with the 2 letters of a bigram consituting opposite corners of the square. The bigram is then replaced by the other 2 corners of the square created to produce the corresponding ciphertext bigram. The cipher was actually rejected by the foreign office originally due to its perceived complexity, however was later used by British forces in the second Boer war, WW1 and WW2 as it is quick to use and requires no special equipment, unlike many other effective ciphers at the time.
 
+* The Affine cipher uses a simple mathematical formula to substitute letters, and the inverse function is used to decrypt. An encrypted letter E(x) = (ax + b) mod m  where m is the total letters in the alphabet, and a and b are values chosen as a key where a and m must be coprime. The inverse function a^-1 (x-b) mod m is used for decryption.
+
 Future Targets:
 
 * Sanitise inputs
