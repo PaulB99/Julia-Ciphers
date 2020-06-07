@@ -47,6 +47,7 @@ function affine()
     plaintext = uppercase(plaintext)
     plaintext = replace(plaintext, " " => "")
 
+    # Take keys and ensure they're valid
     println("Please enter the a value")
     a = parse(Int, readline())
     while !coprime(a, m)
@@ -56,15 +57,15 @@ function affine()
     println("Please enter the b value")
     b = parse(Int, readline())
 
+    # Produce the ciphertext
     ciphertext = ""
     for c in plaintext
         val = charToVal(c) - 1 # Must account for Julia being 1-indexed
         newVal = mod(((a * val) + b), m)
-        newchar = valToChar(newVal)
+        newchar = valToChar(newVal + 1)
         ciphertext *= newchar
     end
     println(ciphertext)
 end
 
 affine()
-println("IHHWVCSWFRCP")
