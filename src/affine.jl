@@ -24,6 +24,20 @@ function coprime(x, y)
     return true
 end
 
+# Changes a char to an int value
+function charToVal(c)
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    val = findfirst(isequal(c), alphabet)
+    return val
+end
+
+# Changes a value to a char1
+function valToChar(i)
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    char = alphabet[i]
+    return char
+end
+
 # Main function
 function affine()
 
@@ -35,13 +49,22 @@ function affine()
 
     println("Please enter the a value")
     a = parse(Int, readline())
-    while !comprime(a, m)
+    while !coprime(a, m)
         println("a value invalid, must be coprime with m value " * string(m))
         a = parse(Int, readline())
     end
     println("Please enter the b value")
     b = parse(Int, readline())
+
+    ciphertext = ""
+    for c in plaintext
+        val = charToVal(c) - 1 # Must account for Julia being 1-indexed
+        newVal = mod(((a * val) + b), m)
+        newchar = valToChar(newVal)
+        ciphertext *= newchar
+    end
+    println(ciphertext)
 end
 
-coprime(10, 26)
-#affine()
+affine()
+println("IHHWVCSWFRCP")
