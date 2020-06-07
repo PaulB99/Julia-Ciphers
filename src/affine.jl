@@ -1,5 +1,29 @@
 # A Julia implementation of the Affine ciphertext
 
+# Determines if 2 values are coprime
+function coprime(x, y)
+    xlist = []
+    ylist = []
+    for i in 2 : x
+        if x % i == 0
+            push!(xlist, i)
+        end
+    end
+    for j in 2 : y
+        if y % j == 0
+            push!(ylist, j)
+        end
+    end
+    for a in xlist
+        for b in ylist
+            if a == b
+                return false
+            end
+        end
+    end
+    return true
+end
+
 # Main function
 function affine()
 
@@ -11,7 +35,7 @@ function affine()
 
     println("Please enter the a value")
     a = parse(Int, readline())
-    while a % m != 0
+    while !comprime(a, m)
         println("a value invalid, must be coprime with m value " * string(m))
         a = parse(Int, readline())
     end
@@ -19,4 +43,5 @@ function affine()
     b = parse(Int, readline())
 end
 
-affine()
+coprime(10, 26)
+#affine()
