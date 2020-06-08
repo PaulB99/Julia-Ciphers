@@ -3,6 +3,7 @@
 function baconian()
 
     # The key for each letter
+    keys = ["aaaaa", "aaaab", "aaaba", "aaabb", "aabaa", "aabab", "aabba", "aabbb", "abaaa", "abaab", "ababa", "ababb", "abbaa", "abbab", "abbba", "abbbb", "baaaa", "baaab", "baaba", "baabb", "babaa", "babab", "babba", "babbb"]    
     A = "aaaaa"    I = "abaaa"    R = "baaaa"
     B = "aaaab"    K = "abaab"    S = "baaab"
     C = "aaaba"    L = "ababa"    T = "baaba"
@@ -27,3 +28,15 @@ function baconian()
         text = readline()
     end
     text = lowercase(text)
+
+    ciphertext = ""
+
+    # Encrypt
+    for i in 0:(length(secret)-1)
+        letter = secret[i+1]
+
+
+    end
+end
+
+baconian()
