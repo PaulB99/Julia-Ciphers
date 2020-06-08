@@ -21,6 +21,8 @@ I have currently implemented the majority of settings available in the Enigma I 
 
 * The Affine cipher uses a simple mathematical formula to substitute letters, and the inverse function is used to decrypt. An encrypted letter E(x) = (ax + b) mod m  where m is the total letters in the alphabet, and a and b are values chosen as a key where a and m must be coprime. The inverse function a^-1 (x-b) mod m is used for decryption.
 
+* The Baconian cipher is named after Sir Francis Bacon, who created the cipher in 1605. Each letter (not including V and J, these are coupled with U and I respectively) is given a 5 letter code of a's and b's. This is used to hide a secret text within another text of 5 times the length. In the longer text, letters are lowercase or uppercase according to the code of each letter in the secret text, wherin a corresponds to lowercase, and b to uppercase. Some people believed Bacon authored much of Shakespeare's work, and a message revealing this is encoded in the Baconian cipher in Shakespeare's First Folio. However, these claims have been refuted after further analysis of the texts.
+
 Future Targets:
 
 * Sanitise inputs
